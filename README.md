@@ -1,4 +1,4 @@
-# 🎨 Actual Art Forum
+# Actual Art Forum 🎨
 
 An art forum that's actually an art forum but has no affiliation whatsoever with art forum. Open to all but designed mainly with BFA and MFA graduates working in the visual / non-commercial arts in mind. Use it however you like or don't.
 
