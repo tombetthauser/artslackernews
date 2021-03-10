@@ -11,10 +11,14 @@ body {
     min-height: 97vh;
 }
 
+.content {
+  padding: 10px;
+}
+
 header {
     font-size: 10px;
     background-color: #ff6600;
-    padding: 2px 3px;
+    padding: 3px 3px 3px 3px;
     font-family: Verdana, Geneva, sans-serif;
     font-size: 10pt;
     height: 26px;

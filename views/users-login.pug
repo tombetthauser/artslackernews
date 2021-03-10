@@ -1,0 +1,20 @@
+extends layout.pug
+
+include utils.pug
+
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/users-login.css")
+  //- add page specific js
+  script(src="/javascripts/index.js" type="module" defer)
+
+block content
+  +validationErrorSummary(errors)
+  form(action='/user/login' method='post')
+    h1 Login
+    input(type='hidden' name='_csrf' value=csrfToken)
+    +field('username: ', 'emailAddress', emailAddress)
+    +field('password: ', 'password', null, 'password')
+    button(type='submit' class='btn btn-primary') login
+    a(href='/' class='btn btn-warning ml-2') cancel
+    p: a(href='/users/register') don't have an account?
