@@ -20,6 +20,56 @@ router.get('/register', csrfProtection, function (req, res) {
   res.render('users-register', { csrfToken: req.csrfToken() })
 });
 
+const registrationValidators = [
+  check('username')
+    .exists({ checkFalsy: true }).withMessage('please provide a username')
+    .isLength({ min: 3 }).withMessage('username must not be less than 3 characters long')
+    .isLength({ max: 50 }).withMessage('username must not be more than 50 characters long')
+    .custom((value) => {
+      return db.User.findOne({ where: { username: value } })
+        .then((user) => {
+          if (user) {
+            return Promise.reject('username is already in use');
+          }
+        });
+    }),
+  check('password')
+    .exists({ checkFalsy: true }).withMessage('please provide a value for password')
+    .isLength({ min: 3 }).withMessage('password must not be less than 3 characters long')
+    .isLength({ max: 50 }).withMessage('password must not be more than 50 characters long'),
+  check('confirmPassword').custom((value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error('confirm password must match password');
+    }
+    return true;
+  }),
+
+  // optionally check password for special characters etc
+  // check('password')
+    // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
+    // .withMessage('Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")'),
+];
+
+router.post('/register', csrfProtection, registrationValidators,
+  asyncHandler(async (req, res) => {
+    const { username, password } = req.body;
+    const validatorErrors = validationResult(req);
+    const user = db.User.build({ username });
+
+    if (validatorErrors.isEmpty()) {
+      const hashedPassword = await bcrypt.hashSync(password);
+      user.hashedPassword = hashedPassword;
+      await user.save();
+      loginUser(req, res, user);
+      req.session.save(() => {
+        res.redirect('/');
+      })
+    } else {
+      const errors = validatorErrors.array().map((error) => error.msg);
+      res.render('users-register', { user, errors, csrfToken: req.csrfToken() });
+    }
+  }));
+
 const loginValidators = [
   check('username').exists({ checkFalsy: true }).withMessage('please provide a username'),
   check('password').exists({ checkFalsy: true }).withMessage('please provide a password')

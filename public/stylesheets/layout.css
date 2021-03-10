@@ -76,3 +76,16 @@ header > h1 > a {
     font-size: 12px;
     text-decoration: none;
 }
+
+.header-logout-form {
+    display: inline-block;
+}
+
+.header-logout-form > button {
+    display: inline-block;
+    background-color: #00000000;
+    border: none;
+    font-size: 12px;
+    padding: 0 0 0 6px;
+    font-family: sans-serif;
+}
