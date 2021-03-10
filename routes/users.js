@@ -17,7 +17,7 @@ router.get('/login', csrfProtection, function(req, res) {
 });
 
 router.get('/register', csrfProtection, function (req, res) {
-  res.render('users-login', { csrfToken: req.csrfToken() })
+  res.render('users-register', { csrfToken: req.csrfToken() })
 });
 
 const loginValidators = [
