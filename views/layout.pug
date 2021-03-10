@@ -4,5 +4,21 @@ html
       block head
         title="Express Starter App"
         link(rel='stylesheet' href='/stylesheets/reset.css')
+        link(rel='stylesheet' href='/stylesheets/layout.css')
   body
-    block content
+    div(class="center")
+      header
+        div(class="logo") 
+          a(href="/") A
+        h1 
+          a(href="/") Actual Art Forum
+        div(class="links")
+          a(href="#") new | 
+          a(href="#") threads | 
+          a(href="#") ask | 
+          a(href="#") show | 
+          a(href="#") jobs | 
+          a(href="#") submit | 
+          a(href="/register") register | 
+          a(href="/login") login
+      block content
