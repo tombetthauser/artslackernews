@@ -7,3 +7,13 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
+  if locals.authenticated
+    span(class='navbar-text px-4') Welcome #{user.firstName}!
+    form(class='form-inline pr-4' action='/user/logout' method='post')
+      button(class='btn btn-sm btn-warning' type='submit') Logout
+  else
+    span(class='navbar-text px-4')
+      div= `locals: ${locals}`
+      div= `locals.authenticated: ${locals.authenticated}`
+      a(class='btn btn-sm btn-dark mr-2' href='/users/login') Login
+      a(class='btn btn-sm btn-dark' href='/users/register') Register
