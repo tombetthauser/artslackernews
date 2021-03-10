@@ -16,31 +16,34 @@ const usersRouter = require('./routes/users');
 
 const app = express();
 
-// view engine setup
-app.set('view engine', 'pug');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser(sessionSecret));
-app.use(express.static(path.join(__dirname, 'public')));
-
-// set up session middleware
 const store = new SequelizeStore({ db: sequelize });
 
-app.use(
-  session({
+app.set('view engine', 'pug');
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(logger('dev'));
+app.use(cookieParser(sessionSecret));
+app.use(session({
     secret: 'secret',
     resave: false,
     saveUninitialized: false,
     store,
-  })
-);
+}));
+app.use(express.urlencoded({ extended: false }));
+app.use(restoreUser);
+
+// prevents caching, seems to help a little possibly but not totally fixed
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store')
+  next()
+})
 
 // create Session table if it doesn't already exist
+// wouldn't be necessary if you created a migration for the session table
 store.sync();
 
-app.use(restoreUser);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
