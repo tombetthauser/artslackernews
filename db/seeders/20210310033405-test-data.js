@@ -4,6 +4,14 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+
+    const users = await queryInterface.bulkInsert('Users', [
+      { username: 'tombetthauser', hashedPassword: bcrypt.hashSync('password'), createdAt: new Date(), updatedAt: new Date() },
+      { username: 'enkaczkowski', hashedPassword: bcrypt.hashSync('password'), createdAt: new Date(), updatedAt: new Date() },
+    ], {
+      returning: true
+    });
+    
     const partAs = [
       "Going to",
       "Remembering",
@@ -54,110 +62,29 @@ module.exports = {
       const partB = partBs[Math.floor(Math.random() * partBs.length)];
       return `${partA} ${partB}`;
     }
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
 
-      Example:
-      */
+    const newPost = () => {
+      const title = randomTitle();
+      const url = `https://www.google.com/search?q=${title.split(" ").join("+").toLowerCase()}`;
+      const id = users[Math.floor(Math.random() * users.length)].id;
 
-   const users = await queryInterface.bulkInsert('Users', [
-      { username: 'tombetthauser', hashedPassword: bcrypt.hashSync('password'), createdAt: new Date(), updatedAt: new Date() },
-      { username: 'enkaczkowski', hashedPassword: bcrypt.hashSync('password'), createdAt: new Date(), updatedAt: new Date() },
-   ], { 
-     returning: true 
-   });
+      return {
+        title: title,
+        userId: id,
+        url: url,
+        category: `news`,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    }
 
-    return queryInterface.bulkInsert('Posts', [
-      { 
-        title: randomTitle(), 
-        userId: users[Math.floor(Math.random() * users.length)].id,
-        url: "http://google.com",
-        category: "news",
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { 
-        title: randomTitle(), 
-        userId: users[Math.floor(Math.random() * users.length)].id,
-        url: "http://google.com",
-        category: "news",
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { 
-        title: randomTitle(), 
-        userId: users[Math.floor(Math.random() * users.length)].id,
-        url: "http://google.com",
-        category: "news",
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { 
-        title: randomTitle(), 
-        userId: users[Math.floor(Math.random() * users.length)].id,
-        url: "http://google.com",
-        category: "news",
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { 
-        title: randomTitle(), 
-        userId: users[Math.floor(Math.random() * users.length)].id,
-        url: "http://google.com",
-        category: "news",
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { 
-        title: randomTitle(), 
-        userId: users[Math.floor(Math.random() * users.length)].id,
-        url: "http://google.com",
-        category: "news",
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { 
-        title: randomTitle(), 
-        userId: users[Math.floor(Math.random() * users.length)].id,
-        url: "http://google.com",
-        category: "news",
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { 
-        title: randomTitle(), 
-        userId: users[Math.floor(Math.random() * users.length)].id,
-        url: "http://google.com",
-        category: "news",
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { 
-        title: randomTitle(), 
-        userId: users[Math.floor(Math.random() * users.length)].id,
-        url: "http://google.com",
-        category: "news",
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { 
-        title: randomTitle(), 
-        userId: users[Math.floor(Math.random() * users.length)].id,
-        url: "http://google.com",
-        category: "news",
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { 
-        title: randomTitle(), 
-        userId: users[Math.floor(Math.random() * users.length)].id,
-        url: "http://google.com",
-        category: "news",
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-    ])
+    const seedPosts = [];
+    for (let i = 0; i < 500; i++) {
+      const post = newPost()
+      seedPosts.push(post);
+    }
+
+    return queryInterface.bulkInsert('Posts', seedPosts)
   },
 
   down: async (queryInterface, Sequelize) => {
