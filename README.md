@@ -20,5 +20,6 @@ REMEMBER TO USE DOTENV with SEQUELIZE-CLI (ie...)
 $ npx dotenv sequelize-cli db:create
 
 $ npx sequelize-cli model:generate --name User --attributes username:string,passwordHash:string
+$ npx sequelize-cli model:generate --name Post --attributes title:string,url:string,category:string,userId:integer
 
 -->
