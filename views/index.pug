@@ -7,3 +7,5 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
+  each post in posts
+    p= `${post.title} posted ${post.createdAt.toDateString()} - by ${post.user.username}`
