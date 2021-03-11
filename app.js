@@ -11,7 +11,6 @@ const createError = require('http-errors');
 const path = require('path');
 const { sequelize } = require('./db/models');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 
