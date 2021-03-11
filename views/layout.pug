@@ -13,12 +13,12 @@ html
         h1 
           a(href="/") Slacker News
         div(class="links")
-          a(href="#") new | 
-          a(href="#") threads | 
-          a(href="#") ask | 
-          a(href="#") show | 
-          a(href="#") jobs | 
-          a(href="#") submit | 
+          a(href="/posts") posts | 
+          //- a(href="/posts&type=threads") threads | 
+          a(href="/posts?type=show") shows | 
+          a(href="/posts?type=question") questions | 
+          a(href="/posts?type=job") jobs | 
+          a(href="/posts/new") submit | 
           if locals.authenticated
             a(href="#") #{user.username} |
             form(class='header-logout-form' action='/users/logout' method='post')

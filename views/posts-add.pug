@@ -1,0 +1,30 @@
+extends layout.pug
+
+include utils.pug
+
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/users-register.css")
+  //- add page specific js
+  script(src="/javascripts/index.js" type="module" defer)
+
+block content
+  form(action='/users/register' method='post')
+    //- +validationErrorSummary(errors)
+    h1 Submit New Post
+    input(type='hidden' name='_csrf' value=csrfToken)
+    label post type:
+    select(name="type")
+      option(value="news") a regular old post
+      option(value="shows") show announcement
+      option(value="ask") ask a question
+      option(value="ask") post a job
+
+    +field('post title: ', 'title', title)
+    +field('post url: ', 'url', url)
+    +field('post text: ', 'text', "", "textarea")
+    //- +field('password: ', 'password', null, 'password')
+    //- +field('confirm password: ', 'confirmPassword', '', 'password')
+    button(type='submit' class='btn btn-primary') submit post
+    a(href='/' class='btn btn-warning ml-2') cancel
+    //- p: a(href='/users/login') already have an account?

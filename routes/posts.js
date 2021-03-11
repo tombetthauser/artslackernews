@@ -9,4 +9,9 @@ router.get('/', asyncHandler(async (req, res) => {
   res.render('index', { posts });
 }));
 
+router.get('/new', asyncHandler(async (req, res) => {
+  // const posts = await db.Post.findAll({ include: ["user"], order: [['createdAt', 'DESC']] });
+  res.render('posts-add');
+}));
+
 module.exports = router;
