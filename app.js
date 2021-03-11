@@ -13,6 +13,7 @@ const { sequelize } = require('./db/models');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const postsRouter = require('./routes/posts');
 
 const app = express();
 
@@ -44,8 +45,13 @@ app.use((req, res, next) => {
 // wouldn't be necessary if you created a migration for the session table
 store.sync();
 
-app.use('/', indexRouter);
+
 app.use('/users', usersRouter);
+app.use('/posts', postsRouter);
+
+app.get('/', (req, res) => {
+  res.redirect('/posts')
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
