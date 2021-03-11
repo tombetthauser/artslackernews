@@ -13,37 +13,85 @@ module.exports = {
     });
     
     const partAs = [
-      "Going to",
+      "Living with",
+      "Working with",
+      "Working for",
       "Remembering",
-      "Trying to Go to",
-      "Just Thinking About",
+      "Trying to Find",
+      "Rediscovering",
+      "Thinking About",
       "Rethinking",
       "Unpacking",
       "Deconstructing",
-      "Living in",
+      "Studying with",
       "Finding",
+      "Channeling",
+      "Discovering",
+      "Avoiding",
+      "Forgetting",
+      "Sustaining",
+      "Seeing Through",
+      "Getting More from",
+      "In the Studio with",
+      "Moving Past",
+      "Building on",
+      "Going Back to",
+      "Redefining",
+      "Ascending to",
+      "Descending to",
+      "Getting Lost with",
     ]
 
     const partBs = [
-      "the Moon",
-      "the Alamo",
-      "the Desert",
-      "the Night Sky",
-      "the Sun",
-      "the South",
-      "the Arctic",
-      "the Local Library",
-      "the Outback",
-      "the Black Forest",
-      "the Lost Coast",
-      "the Dark Side of the Moon",
-      "the Happiest Place on Earth",
-      "the Laugh Factory",
-      "the Mystery Spot",
-      "the 60's",
-      "the 90's",
-      "the Other World",
-      "the Center",
+      "Roger Brown",
+      "Rob Storr",
+      "Vija Celmins",
+      "Francis Bacon",
+      "Albert Pinkham Ryder",
+      "Wayne Thiebaud",
+      "William T. Wiley",
+      "Joan Brown",
+      "Carlos Villa",
+      "Robert Crumb",
+      "David Zwirner",
+      "Robert Bechtle",
+      "Robert Arneson",
+      "David Park",
+      "Mel Ramos",
+      "Forest Bess",
+      "Georgia O'Keeffe",
+      "Judy Chicago",
+      "Jay Defao",
+      "Victor Arnautoff",
+      "Barry McGee",
+      "Margaret Kilgallen",
+      "Clare Rojas",
+      "The Mission School",
+      "Minimalism",
+      "Bay Area Abstraction",
+      "Los Angeles Abstraction",
+      "East Coast Abstraction",
+      "Installation",
+      "Oil Painting",
+      "Greek Sculpture",
+      "Oil Clay",
+      "Lascaux Acrylics",
+      "the Chauvet Cave Paintings",
+      "California Petroglyphs",
+      "South American Petroglyphs",
+      "the Bay Area Figurative Movement",
+      "California Pop Art",
+      "Pop Art",
+      "Commercialism",
+      "Hermitage",
+      "Santa Monica",
+      "Los Angeles",
+      "Davis",
+      "Sacramento",
+      "Oakland",
+      "Queens",
+      "Brooklyn",
+      "Portland",
       "California",
       "Oregon",
       "Texas",
@@ -57,24 +105,44 @@ module.exports = {
       "Taiwan",
     ]
 
+    const partCs = [
+      "but not",
+      "and",
+      "before",
+      "after",
+      "in connection to",
+      "without",
+      "in the face of",
+      "outside the context of",
+      "buried under",
+    ]
+
     const randomTitle = () => {
       const partA = partAs[Math.floor(Math.random() * partAs.length)];
       const partB = partBs[Math.floor(Math.random() * partBs.length)];
-      return `${partA} ${partB}`;
+      const partC = partCs[Math.floor(Math.random() * partCs.length)];
+      const partD = partBs[Math.floor(Math.random() * partBs.length)];
+      return {
+        part: partB,
+        title : [partA, partB, partC, partD].join(" ")
+      };
     }
 
     const newPost = () => {
-      const title = randomTitle();
-      const url = `https://www.google.com/search?q=${title.split(" ").join("+").toLowerCase()}`;
+      const titleObj = randomTitle();
+      const title = titleObj.title
+      const url = `https://en.wikipedia.org/wiki/${titleObj.part}`;
       const id = users[Math.floor(Math.random() * users.length)].id;
+      const date = new Date()
+      const time = Math.floor(Math.random() * date.getTime())
 
       return {
         title: title,
         userId: id,
         url: url,
         category: `news`,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        createdAt: new Date(time),
+        updatedAt: new Date(time)
       }
     }
 

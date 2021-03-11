@@ -16,4 +16,4 @@ block content
         span.post-url
           a(href=post.url target="new")= `(${post.url.split("/")[2]})`
         div.post-subtext-div
-          span.post-subtext= `by ${post.user.username} ${post.createdAt.toDateString()}`
+          span.post-subtext= `by ${post.user.username} | ${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)}`
