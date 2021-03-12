@@ -2,10 +2,34 @@ var express = require('express');
 const db = require('../db/models');
 const { check, validationResult } = require('express-validator');
 const { csrfProtection, asyncHandler } = require('./utils');
+
+var Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 var router = express.Router();
 
 router.get('/', asyncHandler(async (req, res) => {
-  const posts = await db.Post.findAll({ include: ["user"], order: [['createdAt', 'DESC']] });
+  let posts = [];
+  if (Object.entries(req.query).length === 0) {
+    posts = await db.Post.findAll({ include: ["user"], order: [['createdAt', 'DESC']] });
+  } else {
+    const keys = Object.keys(req.query)
+
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i]
+      const postSet = await db.Post.findAll({ 
+        where: {
+          [key]: {
+            [Op.like]: '%' + req.query[key] + '%'
+          }
+        },
+        include: ["user"], 
+        order: [['createdAt', 'DESC']] 
+      });
+
+      posts.push(...postSet)
+    }
+  }
   res.render('index', { posts });
 }));
 
