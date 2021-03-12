@@ -46,10 +46,10 @@ const postValidators = [
 
 router.post('/new', csrfProtection, postValidators,
   asyncHandler(async (req, res) => {
-    const { title, category, url, text } = req.body;
+    const { title, type, url, text } = req.body;
     const validatorErrors = validationResult(req);
     const userId = res.locals.user.id;
-    const post = db.Post.build({ title, category, url, text, userId });
+    const post = db.Post.build({ title, type, url, text, userId });
 
     if (validatorErrors.isEmpty()) {
       await post.save();

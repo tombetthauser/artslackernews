@@ -15,7 +15,7 @@ block content
     if locals.authenticated
       input(type='hidden' name='_csrf' value=csrfToken)
       label post type:
-      select(name="category")
+      select(name="type")
         option(value="news") a regular old post
         option(value="shows") show announcement
         option(value="ask") ask a question

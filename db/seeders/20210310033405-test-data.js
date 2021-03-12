@@ -140,7 +140,7 @@ module.exports = {
         title: title,
         userId: id,
         url: url,
-        category: `news`,
+        type: `news`,
         createdAt: new Date(time),
         updatedAt: new Date(time)
       }
