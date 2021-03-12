@@ -1,4 +1,4 @@
-form {
+.new-post-form {
   background-color: white;
   width: 420px;
   /* height: 150px; */
@@ -13,23 +13,23 @@ form {
   font-size: 13px;
 }
 
-form > a {
+.new-post-form > a {
   font-size: 10px;
 }
 
-form > button {
+.new-post-form > button {
   margin-right: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-form > h1 {
+.new-post-form > h1 {
   border-bottom: 1px solid #ccc;
   padding: 15px 0px 10px;
   margin-bottom: 20px;
 }
 
-form > p {
+.new-post-form > p {
   border-top: 1px solid #ccc;
   padding-top: 17.5px;
   margin-top: 17.5px;
@@ -40,7 +40,25 @@ textarea, input, select {
   width: 250px
 }
 
-form label {
+.new-post-form label {
   display: inline-block;
   min-width: 95px;
+}
+
+.post-login-message {
+  height: 75px
+}
+
+.new-post-login {
+  font-size: 10pt;
+}
+
+.new-post-login:hover {
+  text-decoration: underline;
+}
+
+.new-post-login-span {
+  font-size: 10pt;
+  margin-left: 3px;
+  margin-right: 3px;
 }

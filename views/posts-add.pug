@@ -9,22 +9,29 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  form(action='/users/register' method='post')
-    //- +validationErrorSummary(errors)
+  form.new-post-form(action='/posts/new' method='post')
+    +validationErrorSummary(errors)
     h1 Submit New Post
-    input(type='hidden' name='_csrf' value=csrfToken)
-    label post type:
-    select(name="type")
-      option(value="news") a regular old post
-      option(value="shows") show announcement
-      option(value="ask") ask a question
-      option(value="ask") post a job
+    if locals.authenticated
+      input(type='hidden' name='_csrf' value=csrfToken)
+      label post type:
+      select(name="category")
+        option(value="news") a regular old post
+        option(value="shows") show announcement
+        option(value="ask") ask a question
+        option(value="ask") post a job
 
-    +field('post title: ', 'title', title)
-    +field('optional url: ', 'url', url)
-    +field('optional text: ', 'text', "", "textarea")
-    //- +field('password: ', 'password', null, 'password')
-    //- +field('confirm password: ', 'confirmPassword', '', 'password')
-    button(type='submit' class='btn btn-primary') submit post
-    a(href='/' class='btn btn-warning ml-2') cancel
-    p ** note: if url is included title will link to it directly
+      +field('post title: ', 'title', title)
+      +field('optional url: ', 'url', url)
+      +field('optional text: ', 'text', text, "textarea")
+      button(type='submit' class='btn btn-primary') submit post
+      a(href='/' class='btn btn-warning ml-2') cancel
+      p ** note: if url is included title will link to it directly
+    else
+      div.post-login-message 
+        p You have to log in to submit a new post!
+        p You are not currently logged in.
+      p 
+        a.new-post-login(href="/users/register") register
+        span.new-post-login-span or
+        a.new-post-login(href="/users/login") login
