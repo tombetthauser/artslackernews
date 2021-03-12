@@ -17,15 +17,37 @@ router.get('/', asyncHandler(async (req, res) => {
 
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i]
-      const postSet = await db.Post.findAll({ 
-        where: {
-          [key]: {
-            [Op.like]: '%' + req.query[key] + '%'
+      // console.log(key, "<-----------------------------------")
+      // console.log(req.query[key], "<-----------------------------------")
+      let postSet;
+      if (key === 'userId') {
+        postSet = await db.Post.findAll({ 
+          where: { [key]: parseInt(req.query[key]) },
+          include: ["user"], 
+          order: [['createdAt', 'DESC']] 
+        });  
+      } else {
+        if (Array.isArray(req.query[key])) {
+          let subPostSet = []
+          for (let j = 0; j < req.query[key].length; j++) {
+            const subKey = req.query[key][j];
+            console.log(subKey, "<-----------------------------------")
+            let subPosts = await db.Post.findAll({
+              where: { [key]: { [Op.like]: '%' + subKey + '%' } },
+              include: ["user"],
+              order: [['createdAt', 'DESC']]
+            });
+            posts.push(...subPosts);
           }
-        },
-        include: ["user"], 
-        order: [['createdAt', 'DESC']] 
-      });
+          postSet = subPostSet;
+        } else {
+          postSet = await db.Post.findAll({ 
+            where: { [key]: { [Op.like]: '%' + req.query[key] + '%' } },
+            include: ["user"], 
+            order: [['createdAt', 'DESC']] 
+          });
+        }
+      }
 
       posts.push(...postSet)
     }
