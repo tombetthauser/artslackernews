@@ -20,7 +20,7 @@ html
           a(href="/posts?type=job") jobs | 
           a(href="/posts/new") submit | 
           if locals.authenticated
-            a(href="#") #{user.username} |
+            a(href=`/posts?userId=${user.id}`) #{user.username} |
             form(class='header-logout-form' action='/users/logout' method='post')
               button(type='submit') logout
             //- a(href="/users/login") login

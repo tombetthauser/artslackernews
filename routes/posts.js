@@ -17,8 +17,6 @@ router.get('/', asyncHandler(async (req, res) => {
 
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i]
-      // console.log(key, "<-----------------------------------")
-      // console.log(req.query[key], "<-----------------------------------")
       let postSet;
       if (key === 'userId') {
         postSet = await db.Post.findAll({ 
@@ -31,7 +29,6 @@ router.get('/', asyncHandler(async (req, res) => {
           let subPostSet = []
           for (let j = 0; j < req.query[key].length; j++) {
             const subKey = req.query[key][j];
-            console.log(subKey, "<-----------------------------------")
             let subPosts = await db.Post.findAll({
               where: { [key]: { [Op.like]: '%' + subKey + '%' } },
               include: ["user"],
@@ -53,6 +50,12 @@ router.get('/', asyncHandler(async (req, res) => {
     }
   }
   res.render('index', { posts });
+}));
+
+router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+  const postId = parseInt(req.params.id, 10);
+  const post = await db.Post.findByPk(postId, { include: ["user"] } );
+  res.render('post-show', { post });
 }));
 
 router.get('/new', csrfProtection, asyncHandler(async (req, res) => {
