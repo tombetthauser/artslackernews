@@ -11,9 +11,19 @@ block content
     each post in posts
       li.post-li
         span.post-triangle= `▲`
-        a(href=post.url target="new")
-          span.post-title= `${post.title}`
-        span.post-url
-          a(href=post.url target="new")= `(${post.url.split("/")[2]})`
+        if (post.url)
+          a(href=post.url target="new")
+            span.post-title= `${post.title}`
+          span.post-url
+            a(href=post.url target="new")= `(${post.url.split("/")[2]})`
+        else
+          a(href=`/posts/${post.id}`)
+            span.post-title= `${post.title}`
         div.post-subtext-div
-          span.post-subtext= `by ${post.user.username} | ${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)}`
+          //- span.post-subtext= `by ${post.user.username} | ${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)} | `
+          a.post-list-sub-link(href=`/posts?userId=${post.user.id}`)= `by ${post.user.username} | `
+          a.post-list-sub-link()= `${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)} | `
+          a.post-list-sub-link(href=`/posts/${post.id}`) discuss 
+          if (locals.user)
+            if (post.user.id === locals.user.id)
+              a.post-list-sub-link(href=`/posts/${post.id}/delete`) | delete

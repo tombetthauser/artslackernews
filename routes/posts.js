@@ -86,5 +86,23 @@ router.post('/new', csrfProtection, postValidators,
       res.render('post-add', { title, url, text, csrfToken: req.csrfToken() });
     }
   }));
+  
+
+router.get('/:id/delete', csrfProtection, asyncHandler(async (req, res) => {
+  const postId = parseInt(req.params.id, 10);
+  const post = await db.Post.findByPk(postId, { include: ["user"] });
+  if (res.locals.user && post.user.id === res.locals.user.id) {
+    res.render('post-delete', { csrfToken: req.csrfToken(), post });
+  } else {
+    res.redirect(`/posts/${post.id}`);
+  }
+}));
+
+router.post('/:id/delete', csrfProtection, asyncHandler(async (req, res) => {
+  const postId = parseInt(req.params.id, 10);
+  const post = await db.Post.findByPk(postId);
+  await post.destroy();
+  res.redirect('/posts');
+}));
 
 module.exports = router;

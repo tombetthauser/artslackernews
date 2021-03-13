@@ -89,3 +89,7 @@ header > h1 > a {
     padding: 0 0 0 6px;
     font-family: sans-serif;
 }
+
+.post-list-sub-link {
+    font-size: 10px;
+}
