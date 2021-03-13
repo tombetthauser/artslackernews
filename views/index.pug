@@ -10,7 +10,10 @@ block content
   ol.posts-ol
     each post in posts
       li.post-li
-        span.post-triangle= `▲`
+        if (locals.user && post.user.id === locals.user.id)
+            span.post-asterisk= `*`
+        else
+          span.post-triangle= `▲`
         if (post.url)
           a(href=post.url target="new")
             span.post-title= `${post.title}`

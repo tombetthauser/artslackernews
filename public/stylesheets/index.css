@@ -44,3 +44,12 @@
 .post-subtext {
   font-size: 7pt;
 }
+
+.post-asterisk {
+  margin-left: -3px;
+  margin-right: 2px;
+  font-size: 10pt;
+  transform: translateY(-1px);
+  display: inline-block;
+  color: #ff6600;
+}
