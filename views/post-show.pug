@@ -22,8 +22,10 @@ block content
     textarea.new-comment-textarea
     button.new-comment-submit(type="submit") add comment
   for levelOneComment in post.comments
+    p.level-one-comment-p= levelOneComment.user.username
     p.level-one-comment-p= levelOneComment.text
       if levelOneComment.comments
         for levelTwoComment in levelOneComment.comments
+          p.level-two-comment-p= levelTwoComment.user.username
           p.level-two-comment-p= levelTwoComment.text
           

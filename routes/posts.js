@@ -56,17 +56,14 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   const postId = parseInt(req.params.id, 10);
   const post = await db.Post.findByPk(postId, { 
     include: [
-      {
-        model: db.User,
-        as: "user"
-      },
-      {
-        model: db.Comment,
-        as: "comments",
+      { model: db.User, as: "user" },
+      { model: db.Comment, as: "comments",
         include: [
-          {
-            model: db.Comment,
-            as: "comments"
+          { model: db.User, as: "user" },
+          { model: db.Comment, as: "comments", 
+            include: [
+              { model: db.User, as: "user" }
+            ]
           }
         ]
       },
