@@ -139,7 +139,7 @@ module.exports = {
 
     const randomCommentText = () => {
       const newSentenceArr = []
-      const sentenceLength = Math.floor(Math.random() * 15) + 1;
+      const sentenceLength = Math.floor(Math.random() * 3) + 1;
       for (let i = 0; i < sentenceLength; i++) {
         const randomIdx = Math.floor(Math.random() * sentencesArr.length);
         newSentenceArr.push(sentencesArr[randomIdx]);
