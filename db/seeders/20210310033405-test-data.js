@@ -166,24 +166,34 @@ module.exports = {
     }
 
     const newComment = () => {
-      const containsPostId = seedComments.length === 0 ? true : Math.random() < .5;
-      const containsCommentId = !containsPostId;
+      // const containsPostId = seedComments.length === 0 ? true : Math.random() < .5;
+      let containsPostId = Math.random() < .5;
+      if (seedComments.length === 0) containsPostId = true;
+      let containsCommentId = !containsPostId;
 
       const text = randomCommentText();
       const userId = users[Math.floor(Math.random() * users.length)].id;
-      const postId = containsPostId ? seedPosts[Math.floor(Math.random() * seedPosts.length)].id : null;
-      const commentId = containsCommentId ? seedComments[Math.floor(Math.random() * seedComments.length)].id : null;
+      // const postId = containsPostId ? seedPosts[Math.floor(Math.random() * seedPosts.length)].id : null;
+      // const commentId = containsCommentId ? seedComments[Math.floor(Math.random() * seedComments.length)].id : null;
+      const postId = containsPostId ? Math.floor(Math.random() * seedPosts.length) + 1 : null;
+      const commentId = containsCommentId ? Math.floor(Math.random() * seedComments.length) + 1 : null;
 
-      const date = new Date()
-      const time = Math.floor(Math.random() * date.getTime())
+      let originTime;
+      if (postId) {
+        originTime = seedPosts[postId - 1].createdAt.getTime();
+      } else {
+        originTime = seedComments[commentId - 1].createdAt.getTime();
+      }
+
+      const randomTimePassage = Math.floor(Math.random() * 86400)
 
       return { 
         text, 
         userId, 
         postId, 
         commentId,
-        createdAt: new Date(time),
-        updatedAt: new Date(time)
+        createdAt: new Date(originTime + randomTimePassage),
+        updatedAt: new Date(originTime + randomTimePassage)
       };
     }
 
@@ -193,8 +203,8 @@ module.exports = {
     }
 
     for (let i = 0; i < 750; i++) {
-      const post = newComment()
-      seedComments.push(post);
+      const comment = newComment()
+      seedComments.push(comment);
     }
 
     await queryInterface.bulkInsert('Posts', seedPosts)
