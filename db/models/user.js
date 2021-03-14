@@ -13,11 +13,13 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     User.hasMany(models.Post, {
       as: 'posts',
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      onDelete: 'cascade'
     });
     User.hasMany(models.Comment, {
       as: 'comments',
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      onDelete: 'cascade'
     });
   };
   return User;
