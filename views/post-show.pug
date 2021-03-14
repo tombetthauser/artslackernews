@@ -18,8 +18,11 @@ block content
     a.post-url(href=post.url target="new")= `(${post.url.split("/")[2]})`
     div.post-subtext-div
       span.post-subtext= `by ${post.user.username} | ${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)}`
-  form.new-comment-form
-    textarea.new-comment-textarea
+  form.new-comment-form(action="/comments/new" method="post")
+    +validationErrorSummary(errors)
+    input(type='hidden' name='_csrf' value=csrfToken)
+    input(type='hidden' name='postId' value=post.id)
+    textarea(name="text").new-comment-textarea
     button.new-comment-submit(type="submit") add comment
   for levelOneComment in post.comments
     div.level-one-comment-div

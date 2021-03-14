@@ -52,7 +52,7 @@ router.get('/', asyncHandler(async (req, res) => {
   res.render('index', { posts });
 }));
 
-router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
   const postId = parseInt(req.params.id, 10);
   const post = await db.Post.findByPk(postId, { 
     include: [
@@ -81,24 +81,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     ] 
   } );
 
-
-  // const attraction = await db.Attraction.findByPk(attractionId, { 
-  //   include: [
-  //     { 
-  //       model: db.Park, 
-  //       as: 'park' }, 
-  //     { 
-  //       model: db.AttractionVisit, 
-  //       as: 'visits', 
-  //       include: [
-  //         { model: db.User, as: 'user' }
-  //       ] 
-  //     }
-  //   ] 
-  // });
-
-
-  res.render('post-show', { post });
+  res.render('post-show', { post, csrfToken: req.csrfToken() });
 }));
 
 router.get('/new', csrfProtection, asyncHandler(async (req, res) => {
@@ -126,7 +109,7 @@ router.post('/new', csrfProtection, postValidators,
       })
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
-      res.render('post-add', { title, url, text, csrfToken: req.csrfToken() });
+      res.render('post-add', { title, url, text, errors, csrfToken: req.csrfToken() });
     }
   }));
   

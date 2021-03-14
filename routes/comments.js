@@ -59,11 +59,11 @@ router.post('/new', csrfProtection, postValidators,
     if (validatorErrors.isEmpty()) {
       await comment.save();
       req.session.save(() => {
-        res.redirect('/');
+        res.redirect(`/posts/${postId}`);
       })
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
-      res.render('comment-add', { ext, postId, commentId, csrfToken: req.csrfToken() });
+      res.render('comment-add', { ext, postId, commentId, errors, csrfToken: req.csrfToken() });
     }
   }));
   
