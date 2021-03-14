@@ -22,14 +22,20 @@ block content
     textarea.new-comment-textarea
     button.new-comment-submit(type="submit") add comment
   for levelOneComment in post.comments
-    p.level-one-comment-p= levelOneComment.user.username
-    p.level-one-comment-p= levelOneComment.text
+    div.level-one-comment-div
+      p.post-comment-title= `▲ ${levelOneComment.user.username} ${levelOneComment.createdAt.getHours()}:${levelOneComment.createdAt.getMinutes()} ${levelOneComment.createdAt.toDateString().slice(4)}`
+      p.level-one-comment-p= levelOneComment.text
+      a.comment-reply-link(href=`/comments/${levelOneComment.id}`) reply
       if levelOneComment.comments
         for levelTwoComment in levelOneComment.comments
-          p.level-two-comment-p= levelTwoComment.user.username
-          p.level-two-comment-p= levelTwoComment.text
-          if levelTwoComment.comments
-            for levelThreeComment in levelTwoComment.comments
-              p.level-three-comment-p= levelThreeComment.user.username
-              p.level-three-comment-p= levelThreeComment.text
-          
+          div.level-two-comment-div
+            p.post-comment-title= `▲ ${levelTwoComment.user.username} ${levelTwoComment.createdAt.getHours()}:${levelTwoComment.createdAt.getMinutes()} ${levelTwoComment.createdAt.toDateString().slice(4)}`
+            p.level-two-comment-p= levelTwoComment.text
+            a.comment-reply-link(href=`/comments/${levelTwoComment.id}`) reply
+            if levelTwoComment.comments
+              for levelThreeComment in levelTwoComment.comments
+                div.level-three-div
+                  p.post-comment-title= `▲ ${levelThreeComment.user.username} ${levelThreeComment.createdAt.getHours()}:${levelThreeComment.createdAt.getMinutes()} ${levelThreeComment.createdAt.toDateString().slice(4)}`
+                  p.level-three-comment-p= levelThreeComment.text
+                  a.comment-reply-link(href=`/comments/${levelThreeComment.id}`) reply
+            

@@ -79,14 +79,40 @@
   font-size: 10pt;
 }
 
-.level-one-comment-p {
-  margin-left: 30px;
+.level-one-comment-p, .level-two-comment-p, .level-three-comment-p {
+  padding-left: 15px;
+  margin-bottom: 7.5px;
+  margin-top: 0px;
 }
 
-.level-two-comment-p {
-  margin-left: 60px;
+.level-one-comment-div {
+  font-family: Verdana, Geneva, sans-serif;
+  padding-left: 3px;
+  font-size: 9pt;
 }
 
-.level-three-comment-p {
-  margin-left: 90px;
+.level-two-comment-div, .level-three-comment-div {
+  font-family: Verdana, Geneva, sans-serif;
+  padding-left: 30px;
+  font-size: 9pt;
+}
+
+.comment-reply-link {
+  font-family: Verdana, Geneva, sans-serif;
+  color: #828282;
+  margin-left: 15px;
+  margin-top: 0;
+  text-decoration: underline;
+  font-size: 8pt;
+}
+
+.post-comment-title {
+  font-size: 8pt;
+  color: #828282;
+  margin-top: 15px;
+  margin-bottom: 7.5px;
+}
+
+.new-comment-form {
+  margin-bottom: 50px;
 }
