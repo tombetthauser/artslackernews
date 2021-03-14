@@ -28,4 +28,8 @@ block content
         for levelTwoComment in levelOneComment.comments
           p.level-two-comment-p= levelTwoComment.user.username
           p.level-two-comment-p= levelTwoComment.text
+          if levelTwoComment.comments
+            for levelThreeComment in levelTwoComment.comments
+              p.level-three-comment-p= levelThreeComment.user.username
+              p.level-three-comment-p= levelThreeComment.text
           

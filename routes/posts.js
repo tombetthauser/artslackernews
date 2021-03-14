@@ -62,7 +62,12 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
           { model: db.User, as: "user" },
           { model: db.Comment, as: "comments", 
             include: [
-              { model: db.User, as: "user" }
+              { model: db.User, as: "user" },
+              { model: db.Comment, as: "comments",
+                include: [
+                    { model: db.User, as: "user" }
+                  ]
+              }
             ]
           }
         ]
