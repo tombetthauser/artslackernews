@@ -54,7 +54,36 @@ router.get('/', asyncHandler(async (req, res) => {
 
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   const postId = parseInt(req.params.id, 10);
-  const post = await db.Post.findByPk(postId, { include: ["user"] } );
+  const post = await db.Post.findByPk(postId, { 
+    include: [
+      {
+        model: db.User,
+        as: "user"
+      },
+      {
+        model: db.Comment,
+        as: "comments"
+      },
+    ] 
+  } );
+
+
+  // const attraction = await db.Attraction.findByPk(attractionId, { 
+  //   include: [
+  //     { 
+  //       model: db.Park, 
+  //       as: 'park' }, 
+  //     { 
+  //       model: db.AttractionVisit, 
+  //       as: 'visits', 
+  //       include: [
+  //         { model: db.User, as: 'user' }
+  //       ] 
+  //     }
+  //   ] 
+  // });
+
+
   res.render('post-show', { post });
 }));
 
