@@ -21,5 +21,6 @@ $ npx dotenv sequelize-cli db:create
 
 $ npx sequelize-cli model:generate --name User --attributes username:string,passwordHash:string
 $ npx sequelize-cli model:generate --name Post --attributes title:string,url:string,category:string,userId:integer
+$ npx sequelize-cli model:generate --name Comment --attributes text:string,postId:integer,commentId:integer
 
 -->
