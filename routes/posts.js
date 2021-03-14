@@ -62,7 +62,13 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
       },
       {
         model: db.Comment,
-        as: "comments"
+        as: "comments",
+        include: [
+          {
+            model: db.Comment,
+            as: "comments"
+          }
+        ]
       },
     ] 
   } );
