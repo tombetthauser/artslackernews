@@ -1,4 +1,5 @@
 extends layout
+include utils.pug
 
 append head
   //- add page specific styles by appending to the head
@@ -7,10 +8,16 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  span.post-triangle= `▲`
-  a(href=post.url target="new")
-    span.post-title= `${post.title}`
-  span.post-url
-    a(href=post.url target="new")= `(${post.url.split("/")[2]})`
-  div.post-subtext-div
-    span.post-subtext= `by ${post.user.username} | ${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)}`
+  div.post-show
+    if (locals.user && locals.user.id === post.user.id)
+      span.post-asterisk= `*`
+    else
+      span.post-triangle= `▲`
+    a.title-link(href=post.url target="new")
+      span.post-title= `${post.title}`
+    a.post-url(href=post.url target="new")= `(${post.url.split("/")[2]})`
+    div.post-subtext-div
+      span.post-subtext= `by ${post.user.username} | ${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)}`
+  form.new-comment-form
+    textarea.new-comment-textarea
+    button.new-comment-submit(type="submit") add comment

@@ -1,17 +1,32 @@
-.posts-ol {
-  padding-left: 25px;
+.post-show {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 10pt;
   color: #828282;
+  margin-top: 5px;
+}
+
+.posts-ol {
+  padding-left: 25px;
+  font-family: Verdana, Geneva, sans-serif;
 }
 
 .post-triangle {
-  margin-left: -3px;
+  margin-left: 0px;
+  margin-right: 8px;
   font-size: 8pt;
   transform: translateY(-1px);
   display: inline-block;
   color: #959595;
   cursor: pointer;
+}
+
+.post-asterisk {
+  margin-left: 0px;
+  margin-right: 8px;
+  font-size: 10pt;
+  transform: translateY(-1px);
+  display: inline-block;
+  color: #ff6600;
 }
 
 .post-triangle::selection {
@@ -37,10 +52,29 @@
 }
 
 .post-subtext-div {
-  margin-top: -3px;
-  margin-left: 9px;
+  margin-top: 0px;
+  margin-left: 20px;
 }
 
 .post-subtext {
   font-size: 7pt;
+}
+
+.title-link:visited > .post-title {
+    color: #828282;
+}
+
+.new-comment-textarea {
+  margin-left: 20px;
+  margin-top: 18px;
+  height: 85px;
+  width: 485px;
+}
+
+.new-comment-submit {
+  display: block;
+  margin-left: 20px;
+  margin-top: 18px;
+  font-family: monospace;
+  font-size: 10pt;
 }
