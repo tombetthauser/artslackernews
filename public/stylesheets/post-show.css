@@ -111,8 +111,16 @@
   color: #828282;
   margin-top: 15px;
   margin-bottom: 7.5px;
+  display: inline-block;
 }
 
 .new-comment-form {
   margin-bottom: 50px;
+}
+
+.post-delete-link {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 8pt;
+  color: #828282;
 }

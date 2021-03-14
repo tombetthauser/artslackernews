@@ -27,6 +27,8 @@ block content
   for levelOneComment in post.comments
     div.level-one-comment-div
       p.post-comment-title= `▲ ${levelOneComment.user.username} ${levelOneComment.createdAt.getHours()}:${levelOneComment.createdAt.getMinutes()} ${levelOneComment.createdAt.toDateString().slice(4)}`
+      if (locals.user && locals.user.id === levelOneComment.user.id)
+        a.post-delete-link(href=`/comments/${levelOneComment.id}/delete`) | delete
       p.level-one-comment-p= levelOneComment.text
       a.comment-reply-link(href=`/comments/${levelOneComment.id}`) reply
       if levelOneComment.comments
