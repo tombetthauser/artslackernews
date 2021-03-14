@@ -21,11 +21,9 @@ block content
   form.new-comment-form
     textarea.new-comment-textarea
     button.new-comment-submit(type="submit") add comment
-  ul
-    for comment in post.comments
-      li= comment.text
-        if comment.comments
-          ul
-            for subComment in comment.comments
-              li= subComment.text
-            
+  for levelOneComment in post.comments
+    p.level-one-comment-p= levelOneComment.text
+      if levelOneComment.comments
+        for levelTwoComment in levelOneComment.comments
+          p.level-two-comment-p= levelTwoComment.text
+          

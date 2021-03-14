@@ -78,3 +78,11 @@
   font-family: monospace;
   font-size: 10pt;
 }
+
+.level-one-comment-p {
+  margin-left: 30px;
+}
+
+.level-two-comment-p {
+  margin-left: 60px;
+}
