@@ -120,6 +120,35 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
     }
   }
 
+  // sort third layer comments by date
+  for (let i = 0; i < post.comments.length; i++) {
+    const levelOneComment = post.comments[i];
+    if (levelOneComment.comments.length > 1) {
+      for (let j = 0; j < levelOneComment.length; j++) {
+        const levelTwoComment = post.comments[i][j];
+        console.log("--------------------------------------------------------");
+        console.log(levelTwoComment.text);
+        console.log("--------------------------------------------------------");
+        if (levelTwoComment.comments.length > 1) {
+          const levelThreeComments = levelTwoComment.comments.slice();
+        //   let isSorted = false;
+        //   while (!isSorted) {
+        //     for (let i = 0; i < levelTwoComments.length - 1; i++) {
+        //       isSorted = true;
+        //       const ele1 = levelTwoComments[i];
+        //       const ele2 = levelTwoComments[i + 1];
+        //       if (ele1.updatedAt < ele2.updatedAt) {
+        //         [levelTwoComments[i], levelTwoComments[i + 1]] = [levelTwoComments[i + 1], levelTwoComments[i]];
+        //         isSorted = false;
+        //       }
+        //     }
+        //   }
+          post.comments[i][j].comments = levelThreeComments;
+        }
+      }
+    }
+  }
+
   res.render('post-show', { post, csrfToken: req.csrfToken() });
 }));
 

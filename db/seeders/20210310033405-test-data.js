@@ -16,110 +16,9 @@ module.exports = {
       returning: true
     });
     
-    const partAs = [
-      "Living with",
-      "Working with",
-      "Working for",
-      "Remembering",
-      "Trying to Find",
-      "Rediscovering",
-      "Thinking About",
-      "Rethinking",
-      "Unpacking",
-      "Deconstructing",
-      "Studying with",
-      "Finding",
-      "Channeling",
-      "Discovering",
-      "Avoiding",
-      "Forgetting",
-      "Sustaining",
-      "Seeing Through",
-      "Getting More from",
-      "In the Studio with",
-      "Moving Past",
-      "Building on",
-      "Going Back to",
-      "Redefining",
-      "Ascending to",
-      "Descending to",
-      "Getting Lost with",
-    ]
-
-    const partBs = [
-      "Roger Brown",
-      "Rob Storr",
-      "Vija Celmins",
-      "Francis Bacon",
-      "Albert Pinkham Ryder",
-      "Wayne Thiebaud",
-      "William T. Wiley",
-      "Joan Brown",
-      "Carlos Villa",
-      "Robert Crumb",
-      "David Zwirner",
-      "Robert Bechtle",
-      "Robert Arneson",
-      "David Park",
-      "Mel Ramos",
-      "Forest Bess",
-      "Georgia O'Keeffe",
-      "Judy Chicago",
-      "Jay Defao",
-      "Victor Arnautoff",
-      "Barry McGee",
-      "Margaret Kilgallen",
-      "Clare Rojas",
-      "The Mission School",
-      "Minimalism",
-      "Bay Area Abstraction",
-      "Los Angeles Abstraction",
-      "East Coast Abstraction",
-      "Installation",
-      "Oil Painting",
-      "Greek Sculpture",
-      "Oil Clay",
-      "Lascaux Acrylics",
-      "the Chauvet Cave Paintings",
-      "California Petroglyphs",
-      "South American Petroglyphs",
-      "the Bay Area Figurative Movement",
-      "California Pop Art",
-      "Pop Art",
-      "Commercialism",
-      "Hermitage",
-      "Santa Monica",
-      "Los Angeles",
-      "Davis",
-      "Sacramento",
-      "Oakland",
-      "Queens",
-      "Brooklyn",
-      "Portland",
-      "California",
-      "Oregon",
-      "Texas",
-      "New York",
-      "Chicago",
-      "San Francisco",
-      "Milwaukee",
-      "Austin",
-      "Chile",
-      "Hong Kong",
-      "Taiwan",
-    ]
-
-    const partCs = [
-      "but not",
-      "and",
-      "before",
-      "after",
-      "in connection to",
-      "without",
-      "in the face of",
-      "outside the context of",
-      "buried under",
-    ]
+    const partAs = [ "Living with", "Working with", "Working for", "Remembering", "Trying to Find", "Rediscovering", "Thinking About", "Rethinking", "Unpacking", "Deconstructing", "Studying with", "Finding", "Channeling", "Discovering", "Avoiding", "Forgetting", "Sustaining", "Seeing Through", "Getting More from", "In the Studio with", "Moving Past", "Building on", "Going Back to", "Redefining", "Ascending to", "Descending to", "Getting Lost with", ]
+    const partBs = [ "Roger Brown", "Rob Storr", "Vija Celmins", "Francis Bacon", "Albert Pinkham Ryder", "Wayne Thiebaud", "William T. Wiley", "Joan Brown", "Carlos Villa", "Robert Crumb", "David Zwirner", "Robert Bechtle", "Robert Arneson", "David Park", "Mel Ramos", "Forest Bess", "Georgia O'Keeffe", "Judy Chicago", "Jay Defao", "Victor Arnautoff", "Barry McGee", "Margaret Kilgallen", "Clare Rojas", "The Mission School", "Minimalism", "Bay Area Abstraction", "Los Angeles Abstraction", "East Coast Abstraction", "Installation", "Oil Painting", "Greek Sculpture", "Oil Clay", "Lascaux Acrylics", "the Chauvet Cave Paintings", "California Petroglyphs", "South American Petroglyphs", "the Bay Area Figurative Movement", "California Pop Art", "Pop Art", "Commercialism", "Hermitage", "Santa Monica", "Los Angeles", "Davis", "Sacramento", "Oakland", "Queens", "Brooklyn", "Portland", "California", "Oregon", "Texas", "New York", "Chicago", "San Francisco", "Milwaukee", "Austin", "Chile", "Hong Kong", "Taiwan", ]
+    const partCs = [ "but not", "and", "before", "after", "in connection to", "without", "in the face of", "outside the context of", "buried under", ]
 
     const seedPosts = [];
     const seedComments = [];
@@ -166,15 +65,12 @@ module.exports = {
     }
 
     const newComment = () => {
-      // const containsPostId = seedComments.length === 0 ? true : Math.random() < .5;
       let containsPostId = Math.random() < .5;
       if (seedComments.length === 0) containsPostId = true;
       let containsCommentId = !containsPostId;
 
       const text = randomCommentText();
       const userId = users[Math.floor(Math.random() * users.length)].id;
-      // const postId = containsPostId ? seedPosts[Math.floor(Math.random() * seedPosts.length)].id : null;
-      // const commentId = containsCommentId ? seedComments[Math.floor(Math.random() * seedComments.length)].id : null;
       const postId = containsPostId ? Math.floor(Math.random() * seedPosts.length) + 1 : null;
       const commentId = containsCommentId ? Math.floor(Math.random() * seedComments.length) + 1 : null;
 
@@ -197,12 +93,12 @@ module.exports = {
       };
     }
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 50; i++) {
       const post = newPost()
       seedPosts.push(post);
     }
 
-    for (let i = 0; i < 750; i++) {
+    for (let i = 0; i < 1500; i++) {
       const comment = newComment()
       seedComments.push(comment);
     }
@@ -213,12 +109,6 @@ module.exports = {
 
 
   down: async (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      */
    await queryInterface.bulkDelete('Posts', null, {});
    return queryInterface.bulkDelete('Users', null, {});
   }
