@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     Comment.hasMany(models.Comment, {
       as: 'comments',
       foreignKey: 'commentId',
-      onDelete: 'cascade'
+      onDelete: 'CASCADE'
     });
   };
   return Comment;

@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Post, {
       as: 'posts',
       foreignKey: 'userId',
-      onDelete: 'cascade'
+      onDelete: 'CASCADE'
     });
     User.hasMany(models.Comment, {
       as: 'comments',
       foreignKey: 'userId',
-      onDelete: 'cascade'
+      onDelete: 'CASCADE'
     });
   };
   return User;
