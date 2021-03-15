@@ -91,10 +91,11 @@
   font-size: 9pt;
 }
 
-.level-two-comment-div, .level-three-comment-div {
+.level-two-comment-div, .level-three-div {
   font-family: Verdana, Geneva, sans-serif;
   padding-left: 30px;
   font-size: 9pt;
+  display: block;
 }
 
 .comment-reply-link {
@@ -111,7 +112,7 @@
   color: #828282;
   margin-top: 15px;
   margin-bottom: 7.5px;
-  display: inline-block;
+  display: block;
 }
 
 .new-comment-form {

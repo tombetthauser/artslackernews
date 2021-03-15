@@ -32,15 +32,15 @@ block content
       p.level-one-comment-p= levelOneComment.text
       a.comment-reply-link(href=`/comments/${levelOneComment.id}`) reply
       if levelOneComment.comments
-        for levelTwoComment in levelOneComment.comments
-          div.level-two-comment-div
+        div.level-two-comment-div
+          for levelTwoComment in levelOneComment.comments
             p.post-comment-title= `▲ ${levelTwoComment.user.username} ${levelTwoComment.createdAt.getHours()}:${levelTwoComment.createdAt.getMinutes()} ${levelTwoComment.createdAt.toDateString().slice(4)}`
             p.level-two-comment-p= levelTwoComment.text
             a.comment-reply-link(href=`/comments/${levelTwoComment.id}`) reply
             if levelTwoComment.comments
-              for levelThreeComment in levelTwoComment.comments
-                div.level-three-div
+              div.level-three-div
+                for levelThreeComment in levelTwoComment.comments
                   p.post-comment-title= `▲ ${levelThreeComment.user.username} ${levelThreeComment.createdAt.getHours()}:${levelThreeComment.createdAt.getMinutes()} ${levelThreeComment.createdAt.toDateString().slice(4)}`
                   p.level-three-comment-p= levelThreeComment.text
                   a.comment-reply-link(href=`/comments/${levelThreeComment.id}`) reply
-            
+              

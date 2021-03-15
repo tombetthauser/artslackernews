@@ -81,6 +81,45 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
     ] 
   } );
 
+  // sort first layer comments by date
+  if (post.comments.length > 1) {
+    const comments1 = post.comments.slice();
+    let isSorted = false;
+    while (!isSorted) {
+      for (let i = 0; i < comments1.length - 1; i++) {
+        isSorted = true;
+        const ele1 = comments1[i];
+        const ele2 = comments1[i + 1];
+        if (ele1.updatedAt < ele2.updatedAt) {
+          [comments1[i], comments1[i + 1]] = [comments1[i + 1], comments1[i]];
+          isSorted = false;
+        }
+      }
+    }
+    post.comments = comments1;
+  }
+
+  // sort second layer comments by date
+  for (let i = 0; i < post.comments.length; i++) {
+    const levelOneComment = post.comments[i];
+    if (levelOneComment.comments.length > 1) {
+      const levelTwoComments = levelOneComment.comments.slice();
+      let isSorted = false;
+      while (!isSorted) {
+        for (let i = 0; i < levelTwoComments.length - 1; i++) {
+          isSorted = true;
+          const ele1 = levelTwoComments[i];
+          const ele2 = levelTwoComments[i + 1];
+          if (ele1.updatedAt < ele2.updatedAt) {
+            [levelTwoComments[i], levelTwoComments[i + 1]] = [levelTwoComments[i + 1], levelTwoComments[i]];
+            isSorted = false;
+          }
+        }
+      }
+      post.comments[i].comments = levelTwoComments;
+    }
+  }
+
   res.render('post-show', { post, csrfToken: req.csrfToken() });
 }));
 

@@ -81,8 +81,11 @@ router.get('/:id/delete', csrfProtection, asyncHandler(async (req, res) => {
 router.post('/:id/delete', csrfProtection, asyncHandler(async (req, res) => {
   const commentId = parseInt(req.params.id, 10);
   const comment = await db.Comment.findByPk(commentId, { include: [ "post" ] });
+  const postId = comment.post.id
   await comment.destroy();
-  res.redirect(`/posts/${comment.post.id}`);
+  req.session.save(() => {
+    res.redirect(`/posts/${postId}`);
+  })
 }));
 
 module.exports = router;
