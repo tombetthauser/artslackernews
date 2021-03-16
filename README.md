@@ -25,4 +25,11 @@ $ npx sequelize-cli model:generate --name User --attributes username:string,pass
 $ npx sequelize-cli model:generate --name Post --attributes title:string,url:string,category:string,userId:integer
 $ npx sequelize-cli model:generate --name Comment --attributes text:string,postId:integer,commentId:integer
 
+TO RESET THE DATABASE
+$ npx dotenv sequelize-cli db:drop
+$ npx dotenv sequelize-cli db:create
+$ npx dotenv sequelize-cli db:migrate
+$ npx dotenv sequelize-cli db:seed:all
+
+
 -->
