@@ -46,7 +46,11 @@ block content
             if levelTwoComment.comments
               div.level-three-div
                 for levelThreeComment in levelTwoComment.comments
-                  p.post-comment-title= `▲ ${levelThreeComment.user.username} ${levelThreeComment.createdAt.getHours()}:${levelThreeComment.createdAt.getMinutes()} ${levelThreeComment.createdAt.toDateString().slice(4)}`
+                  if (locals.user && locals.user.id === levelThreeComment.user.id)
+                    p.post-comment-title= `* ${levelThreeComment.user.username} ${levelThreeComment.createdAt.getHours()}:${levelThreeComment.createdAt.getMinutes()} ${levelThreeComment.createdAt.toDateString().slice(4)}`
+                    a.post-delete-link(href=`/comments/${levelTwoComment.id}/delete`) | delete
+                  else
+                    p.post-comment-title= `▲ ${levelThreeComment.user.username} ${levelThreeComment.createdAt.getHours()}:${levelThreeComment.createdAt.getMinutes()} ${levelThreeComment.createdAt.toDateString().slice(4)}`
                   p.level-three-comment-p= levelThreeComment.text
                   //- a.comment-reply-link(href=`/comments/${levelThreeComment.id}`) reply
               
