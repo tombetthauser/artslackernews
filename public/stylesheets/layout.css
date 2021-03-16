@@ -62,8 +62,9 @@ header > h1 > a {
     display: inline-block;
     line-height: 22px;
     color: #fff;
-    font-weight: 100;
+    font-weight: 500;
     text-align: center;
+    transform: translateY(-1px);
 }
 
 .links {
@@ -92,4 +93,40 @@ header > h1 > a {
 
 .post-list-sub-link {
     font-size: 10px;
+}
+
+.header-logout-form > button {
+    font-size: 12px;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.footer-div {
+    border-top: 2px solid #ff6600;
+    padding-bottom: 15px;
+}
+
+.footer-text {
+    text-align: center;
+    font-size: 10pt;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.footer-links {
+    text-align: center;
+    font-size: 8pt;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.footer-search-form {
+    text-align: center;
+    font-size: 10pt;
+    font-family: Verdana, Geneva, sans-serif;
+    margin-top: 15px;
+}
+
+.footer-search-form > label {
+    text-align: center;
+    font-size: 10pt;
+    font-family: Verdana, Geneva, sans-serif;
+    color: #828282;
 }

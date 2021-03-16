@@ -29,3 +29,10 @@ html
             a(href="/users/login") login
       div(class="content")
         block content
+      div.footer-div
+        p.footer-text Inane Posts and Discussions for Deadbeat Art Hippies
+        div.footer-links
+          a.footer-link(href="https://github.com/tombetthauser" target="new")= `tom betthauser ${new Date().getFullYear()}`
+        form.footer-search-form(method="get" action=`/posts`)
+          label Search: 
+          input(type="text" name="title")

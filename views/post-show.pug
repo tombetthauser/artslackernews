@@ -18,6 +18,7 @@ block content
     a.post-url(href=post.url target="new")= `(${post.url.split("/")[2]})`
     div.post-subtext-div
       span.post-subtext= `by ${post.user.username} | ${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)}`
+    //- p.post-text= post.text
   form.new-comment-form(action="/comments/new" method="post")
     +validationErrorSummary(errors)
     input(type='hidden' name='_csrf' value=csrfToken)

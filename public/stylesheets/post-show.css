@@ -112,7 +112,7 @@
   color: #828282;
   margin-top: 15px;
   margin-bottom: 7.5px;
-  display: block;
+  display: inline-block;
 }
 
 .new-comment-form {
