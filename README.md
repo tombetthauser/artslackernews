@@ -1,6 +1,8 @@
-# Actual Art Forum 🎨
+# Slacker News Arts Forum
 
-An art forum that's actually an art forum but has no affiliation whatsoever with art forum. Open to all but designed mainly with BFA and MFA graduates working in the visual / non-commercial arts in mind. Use it however you like or don't.
+An art forum that's actually an art forum but has no affiliation whatsoever with art forum. A loving and pointless clone of the actual website <a target="new" href="http://hackernews.org">Hacker News</a>. Open to all but designed mainly with BFA and MFA graduates working in the visual / non-commercial arts in mind. Use it however you like or don't.
+
+Still super broken, please create new issues if you find something not working!
 
 <!-- 
 
