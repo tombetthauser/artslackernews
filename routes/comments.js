@@ -8,36 +8,38 @@ const Op = Sequelize.Op;
 
 var router = express.Router();
 
-router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
-  const postId = parseInt(req.params.id, 10);
-  const post = await db.Post.findByPk(postId, { 
-    include: [
-      { model: db.User, as: "user" },
-      { 
-        model: db.Comment, 
-        as: "comments",
-        include: [
-          { model: db.User, as: "user" },
-          { 
-            model: db.Comment, 
-            as: "comments", 
-            include: [
-              { model: db.User, as: "user" },
-              { 
-                model: db.Comment, 
-                as: "comments",
-                include: [
-                    { model: db.User, as: "user" }
-                  ]
-              }
-            ]
-          }
-        ]
-      },
-    ] 
-  } );
+router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
+  const commentId = parseInt(req.params.id, 10);
+  const comment = await db.Comment.findByPk(commentId, { include: [ "user", "post" ] })
+  // const post = await db.Post.findByPk(postId, { 
+    // include: [
+    //   { model: db.User, as: "user" },
+    //   { 
+    //     model: db.Comment, 
+    //     as: "comments",
+    //     include: [
+    //       { model: db.User, as: "user" },
+    //       { 
+    //         model: db.Comment, 
+    //         as: "comments", 
+    //         include: [
+    //           { model: db.User, as: "user" },
+    //           { 
+    //             model: db.Comment, 
+    //             as: "comments",
+    //             include: [
+    //                 { model: db.User, as: "user" }
+    //               ]
+    //           }
+    //         ]
+    //       }
+    //     ]
+      // },
+    // ] 
+    // } 
+  // );
 
-  res.render('comment-show', { comment });
+  res.render('comment-show', { comment, csrfToken: req.csrfToken() });
 }));
 
 router.get('/new/:id', csrfProtection, asyncHandler(async (req, res) => {

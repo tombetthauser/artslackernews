@@ -2,45 +2,20 @@ extends layout
 include utils.pug
 
 append head
-  //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/post-show.css")
-  //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
   div.post-show
-    if (locals.user && locals.user.id === post.user.id)
+    if (locals.user && locals.user.id === comment.user.id)
       span.post-asterisk= `*`
     else
       span.post-triangle= `▲`
-    a.title-link(href=post.url target="new")
-      span.post-title= `${post.title}`
-    a.post-url(href=post.url target="new")= `(${post.url.split("/")[2]})`
-    div.post-subtext-div
-      span.post-subtext= `by ${post.user.username} | ${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)}`
+    span.post-title= `${comment.text}`
+    span.post-subtext= `by ${comment.user.username} | ${comment.createdAt.getHours()}:${comment.createdAt.getMinutes()} ${comment.createdAt.toDateString().slice(4)}`
   form.new-comment-form(action="/comments/new" method="post")
     +validationErrorSummary(errors)
     input(type='hidden' name='_csrf' value=csrfToken)
-    input(type='hidden' name='postId' value=post.id)
+    input(type='hidden' name='commentId' value=comment.id)
     textarea(name="text").new-comment-textarea
     button.new-comment-submit(type="submit") add comment
-  for levelOneComment in post.comments
-    div.level-one-comment-div
-      p.post-comment-title= `▲ ${levelOneComment.user.username} ${levelOneComment.createdAt.getHours()}:${levelOneComment.createdAt.getMinutes()} ${levelOneComment.createdAt.toDateString().slice(4)}`
-      if (locals.user && locals.user.id === levelOneComment.user.id)
-        a.post-delete-link(href=`/comments/${levelOneComment.id}/delete`) | delete
-      p.level-one-comment-p= levelOneComment.text
-      a.comment-reply-link(href=`/comments/${levelOneComment.id}`) reply
-      if levelOneComment.comments
-        div.level-two-comment-div
-          for levelTwoComment in levelOneComment.comments
-            p.post-comment-title= `▲ ${levelTwoComment.user.username} ${levelTwoComment.createdAt.getHours()}:${levelTwoComment.createdAt.getMinutes()} ${levelTwoComment.createdAt.toDateString().slice(4)}`
-            p.level-two-comment-p= levelTwoComment.text
-            a.comment-reply-link(href=`/comments/${levelTwoComment.id}`) reply
-            if levelTwoComment.comments
-              div.level-three-div
-                for levelThreeComment in levelTwoComment.comments
-                  p.post-comment-title= `▲ ${levelThreeComment.user.username} ${levelThreeComment.createdAt.getHours()}:${levelThreeComment.createdAt.getMinutes()} ${levelThreeComment.createdAt.toDateString().slice(4)}`
-                  p.level-three-comment-p= levelThreeComment.text
-                  a.comment-reply-link(href=`/comments/${levelThreeComment.id}`) reply
-              
