@@ -158,7 +158,11 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 }));
 
 router.get('/new', csrfProtection, asyncHandler(async (req, res) => {
-  res.render('posts-add', { csrfToken: req.csrfToken() });
+  if (res.locals.user) {
+    res.render('posts-add', { csrfToken: req.csrfToken() });
+  } else {
+    res.redirect('/users/login')
+  }
 }));
 
 const postValidators = [

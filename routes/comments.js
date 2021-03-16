@@ -23,21 +23,29 @@ const postValidators = [
     .exists({ checkFalsy: true }).withMessage('comment text cannot be empty')
 ];
 
-router.post('/new', csrfProtection, postValidators,
-  asyncHandler(async (req, res) => {
-    const { text, postId, commentId } = req.body;
-    const validatorErrors = validationResult(req);
-    const userId = res.locals.user.id;
-    const comment = db.Comment.build({ text, userId, postId, commentId });
-
-    if (validatorErrors.isEmpty()) {
-      await comment.save();
-      req.session.save(() => {
-        res.redirect(`/posts/${postId}`);
-      })
+router.post('/new', csrfProtection, postValidators, asyncHandler(async (req, res) => {
+    if (res.locals.user) {
+      const { text, postId, commentId } = req.body;
+      const validatorErrors = validationResult(req);
+      const userId = res.locals.user.id;
+      const comment = db.Comment.build({ text, userId, postId, commentId });
+  
+      if (validatorErrors.isEmpty()) {
+        await comment.save();
+        req.session.save(() => {
+          if (postId) {
+            res.redirect(`/posts/${postId}`);
+          } else {
+            res.redirect(`/posts`);
+          }
+        })
+      } else {
+        const errors = validatorErrors.array().map((error) => error.msg);
+        res.render('comment-add', { ext, postId, commentId, errors, csrfToken: req.csrfToken() });
+      }
     } else {
-      const errors = validatorErrors.array().map((error) => error.msg);
-      res.render('comment-add', { ext, postId, commentId, errors, csrfToken: req.csrfToken() });
+      res.locals.commentStorage = { commentId: req.body.commentId, postId: req.body.postId, text: req.body.text};
+      res.redirect('/users/login')
     }
   }));
   

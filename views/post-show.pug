@@ -26,15 +26,21 @@ block content
     button.new-comment-submit(type="submit") add comment
   for levelOneComment in post.comments
     div.level-one-comment-div
-      p.post-comment-title= `▲ ${levelOneComment.user.username} ${levelOneComment.createdAt.getHours()}:${levelOneComment.createdAt.getMinutes()} ${levelOneComment.createdAt.toDateString().slice(4)}`
       if (locals.user && locals.user.id === levelOneComment.user.id)
+        p.post-comment-title= `* ${levelOneComment.user.username} ${levelOneComment.createdAt.getHours()}:${levelOneComment.createdAt.getMinutes()} ${levelOneComment.createdAt.toDateString().slice(4)}`
         a.post-delete-link(href=`/comments/${levelOneComment.id}/delete`) | delete
+      else
+        p.post-comment-title= `▲ ${levelOneComment.user.username} ${levelOneComment.createdAt.getHours()}:${levelOneComment.createdAt.getMinutes()} ${levelOneComment.createdAt.toDateString().slice(4)}`
       p.level-one-comment-p= levelOneComment.text
       a.comment-reply-link(href=`/comments/${levelOneComment.id}`) reply
       if levelOneComment.comments
         div.level-two-comment-div
           for levelTwoComment in levelOneComment.comments
-            p.post-comment-title= `▲ ${levelTwoComment.user.username} ${levelTwoComment.createdAt.getHours()}:${levelTwoComment.createdAt.getMinutes()} ${levelTwoComment.createdAt.toDateString().slice(4)}`
+            if (locals.user && locals.user.id === levelTwoComment.user.id)
+              p.post-comment-title= `* ${levelTwoComment.user.username} ${levelTwoComment.createdAt.getHours()}:${levelTwoComment.createdAt.getMinutes()} ${levelTwoComment.createdAt.toDateString().slice(4)}`
+              a.post-delete-link(href=`/comments/${levelTwoComment.id}/delete`) | delete
+            else
+              p.post-comment-title= `▲ ${levelTwoComment.user.username} ${levelTwoComment.createdAt.getHours()}:${levelTwoComment.createdAt.getMinutes()} ${levelTwoComment.createdAt.toDateString().slice(4)}`
             p.level-two-comment-p= levelTwoComment.text
             a.comment-reply-link(href=`/comments/${levelTwoComment.id}`) reply
             if levelTwoComment.comments
@@ -42,5 +48,5 @@ block content
                 for levelThreeComment in levelTwoComment.comments
                   p.post-comment-title= `▲ ${levelThreeComment.user.username} ${levelThreeComment.createdAt.getHours()}:${levelThreeComment.createdAt.getMinutes()} ${levelThreeComment.createdAt.toDateString().slice(4)}`
                   p.level-three-comment-p= levelThreeComment.text
-                  a.comment-reply-link(href=`/comments/${levelThreeComment.id}`) reply
+                  //- a.comment-reply-link(href=`/comments/${levelThreeComment.id}`) reply
               
