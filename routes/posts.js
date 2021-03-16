@@ -60,16 +60,22 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
       { 
         model: db.Comment, 
         as: "comments",
+        separate: true,
+        order: [['updatedAt', 'asc']],
         include: [
           { model: db.User, as: "user" },
           { 
             model: db.Comment, 
             as: "comments", 
+            separate: true,
+            order: [['updatedAt', 'asc']],
             include: [
               { model: db.User, as: "user" },
               { 
                 model: db.Comment, 
                 as: "comments",
+                separate: true,
+                order: [['updatedAt', 'asc']],
                 include: [
                     { model: db.User, as: "user" }
                   ]
@@ -82,74 +88,73 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
   } );
 
   // sort first layer comments by date
-  if (post.comments.length > 1) {
-    const comments1 = post.comments.slice();
-    let isSorted = false;
-    while (!isSorted) {
-      for (let i = 0; i < comments1.length - 1; i++) {
-        isSorted = true;
-        const ele1 = comments1[i];
-        const ele2 = comments1[i + 1];
-        if (ele1.updatedAt < ele2.updatedAt) {
-          [comments1[i], comments1[i + 1]] = [comments1[i + 1], comments1[i]];
-          isSorted = false;
-        }
-      }
-    }
-    post.comments = comments1;
-  }
+  // if (post.comments.length > 1) {
+  //   const comments1 = post.comments.slice();
+  //   let isSorted = false;
+  //   while (!isSorted) {
+  //     for (let i = 0; i < comments1.length - 1; i++) {
+  //       isSorted = true;
+  //       const ele1 = comments1[i];
+  //       const ele2 = comments1[i + 1];
+  //       if (ele1.updatedAt < ele2.updatedAt) {
+  //         [comments1[i], comments1[i + 1]] = [comments1[i + 1], comments1[i]];
+  //         isSorted = false;
+  //       }
+  //     }
+  //   }
+  //   post.comments = comments1;
+  // }
 
   // sort second layer comments by date
-  for (let i = 0; i < post.comments.length; i++) {
-    const levelOneComment = post.comments[i];
-    if (levelOneComment.comments.length > 1) {
-      const levelTwoComments = levelOneComment.comments.slice();
-      let isSorted = false;
-      while (!isSorted) {
-        for (let i = 0; i < levelTwoComments.length - 1; i++) {
-          isSorted = true;
-          const ele1 = levelTwoComments[i];
-          const ele2 = levelTwoComments[i + 1];
-          if (ele1.updatedAt < ele2.updatedAt) {
-            [levelTwoComments[i], levelTwoComments[i + 1]] = [levelTwoComments[i + 1], levelTwoComments[i]];
-            isSorted = false;
-          }
-        }
-      }
-      post.comments[i].comments = levelTwoComments;
-    }
-  }
+  // for (let i = 0; i < post.comments.length; i++) {
+  //   const levelOneComment = post.comments[i];
+  //   if (levelOneComment.comments.length > 1) {
+  //     const levelTwoComments = levelOneComment.comments.slice();
+  //     let isSorted = false;
+  //     while (!isSorted) {
+  //       for (let i = 0; i < levelTwoComments.length - 1; i++) {
+  //         isSorted = true;
+  //         const ele1 = levelTwoComments[i];
+  //         const ele2 = levelTwoComments[i + 1];
+  //         if (ele1.updatedAt < ele2.updatedAt) {
+  //           [levelTwoComments[i], levelTwoComments[i + 1]] = [levelTwoComments[i + 1], levelTwoComments[i]];
+  //           isSorted = false;
+  //         }
+  //       }
+  //     }
+  //     post.comments[i].comments = levelTwoComments;
+  //   }
+  // }
 
   // sort third layer comments by date
-  for (let i = 0; i < post.comments.length; i++) {
-    const levelOneComment = post.comments[i];
-    if (levelOneComment.comments.length > 1) {
-      for (let j = 0; j < levelOneComment.length; j++) {
-        const levelTwoComment = post.comments[i][j];
-        console.log("--------------------------------------------------------");
-        console.log(levelTwoComment.text);
-        console.log("--------------------------------------------------------");
-        if (levelTwoComment.comments.length > 1) {
-          const levelThreeComments = levelTwoComment.comments.slice();
-        //   let isSorted = false;
-        //   while (!isSorted) {
-        //     for (let i = 0; i < levelTwoComments.length - 1; i++) {
-        //       isSorted = true;
-        //       const ele1 = levelTwoComments[i];
-        //       const ele2 = levelTwoComments[i + 1];
-        //       if (ele1.updatedAt < ele2.updatedAt) {
-        //         [levelTwoComments[i], levelTwoComments[i + 1]] = [levelTwoComments[i + 1], levelTwoComments[i]];
-        //         isSorted = false;
-        //       }
-        //     }
-        //   }
-          post.comments[i][j].comments = levelThreeComments;
-        }
-      }
-    }
-  }
+  // for (let i = 0; i < post.comments.length; i++) {
+  //   const levelOneComment = post.comments[i];
+  //   if (levelOneComment.comments.length > 1) {
+  //     for (let j = 0; j < levelOneComment.comments.length; j++) {
+  //       const levelTwoComment = post.comments[i].comments[j];
+  //       if (levelTwoComment.comments.length > 1) {
+  //         const levelThreeComments = levelTwoComment.comments.slice();
+  //         let isSorted = false;
+  //         while (!isSorted) {
+  //           for (let k = 0; k < levelThreeComments.length - 1; k++) {
+  //             isSorted = true;
+  //             const ele1 = levelThreeComments[k];
+  //             const ele2 = levelThreeComments[k + 1];
+  //             if (ele1.updatedAt < ele2.updatedAt) {
+  //               [levelThreeComments[k], levelThreeComments[k + 1]] = [levelThreeComments[k + 1], levelThreeComments[k]];
+  //               isSorted = false;
+  //             }
+  //           }
+  //         }
+  //         post.comments[i].comments[j].comments = levelThreeComments;
+  //       }
+  //     }
+  //   }
+  // }
 
+  // req.session.save(() => {
   res.render('post-show', { post, csrfToken: req.csrfToken() });
+  // })
 }));
 
 router.get('/new', csrfProtection, asyncHandler(async (req, res) => {
