@@ -31,5 +31,14 @@ $ npx dotenv sequelize-cli db:create
 $ npx dotenv sequelize-cli db:migrate
 $ npx dotenv sequelize-cli db:seed:all
 
+WORK LOG
+* After initial build sprint during December 2020 cohort express project week (March 16th 2021)
+* Got comments fetching and rendering 3 levels deep, planned to extend to 10 levels deep, should be a trivial copy/paste thing to do
+* Got login block / redirect working when trying to leave comment or make post while not logged in but didn't make the redirect take you back to where you were or retain comment / post text, could manage through url props maybe? Seemed tricky
+* Same issue on leaving sub-comments, they redirect to root after submission rather than their parent comment page, could maybe fix by making new posts route that can accept a comment id and do a look up? Seemed tricky also but possible
+* Needed to figure out making a functional 'more' button at the bottom of posts index page - seemed like it would be pretty straight forward with url props for page number and some in-line css on the ordered list to give it a starting number - could be lazy and just filter a fetchAll on the back-end but could probably write a dynamic where for sequelize to translate into sql
+* Needed to add some seed data for different sections or just add a random section picker in the existing seed file
+* Need to add optional text for new posts - had the textarea field on the new post form but realized it wasn't actually a column on the Posts table so hid the input for now - need to add it to migrations or maybe add an additive migration - regardless add to database, then make some coin-flip random text in the seed file, then uncomment the input field on new post form and then work on how it renders in the post view
+* after the ability to show more posts and split posts up into different pages is built the lazy url-props-based search feature will break and will have to actually get built out on the back end with some sequelize where magic - can still probably work through url props though
 
 -->
