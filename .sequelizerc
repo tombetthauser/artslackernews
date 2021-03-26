@@ -4,17 +4,5 @@ module.exports = {
   'config': path.resolve('config', 'database.js'),
   'models-path': path.resolve('db', 'models'),
   'seeders-path': path.resolve('db', 'seeders'),
-  'migrations-path': path.resolve('db', 'migrations'),
-  development: {
-    username,
-    password,
-    database,
-    host,
-    dialect: 'postgres',
-  },
-  production: {
-    use_env_variable: 'DATABASE_URL',
-    dialect: 'postgres',
-    seederStorage: 'sequelize',
-  }
+  'migrations-path': path.resolve('db', 'migrations')
 };
