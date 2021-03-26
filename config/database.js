@@ -28,7 +28,10 @@ module.exports = {
     database,
     host,
     dialect: "postgres",
-    seederStorage: "sequelize"
+    seederStorage: "sequelize",
+    ssl: {
+      rejectUnauthorized: false
+    }
   },
   production: {
     use_env_variable: 'DATABASE_URL',
@@ -36,3 +39,10 @@ module.exports = {
     seederStorage: 'sequelize',
   }
 };
+
+// const client = new Client({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false
+//   }
+// });
