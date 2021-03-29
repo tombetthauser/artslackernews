@@ -4,7 +4,7 @@ body {
 
 .center {
     width: 85%;
-    min-width: 796px;
+    min-width: 400px;
     display: block;
     margin: 0 auto;
     background-color: #f6f6ef;
@@ -21,7 +21,7 @@ header {
     padding: 3px 3px 3px 3px;
     font-family: Verdana, Geneva, sans-serif;
     font-size: 10pt;
-    height: 26px;
+    /* height: 26px; */
 }
 
 header > h1 {
@@ -129,4 +129,20 @@ header > h1 > a {
     font-size: 10pt;
     font-family: Verdana, Geneva, sans-serif;
     color: #828282;
+}
+
+@media only screen and (max-width: 750px) {
+  .center {
+    width: 100%;
+    max-width: 100%;
+    min-width: none;
+  }
+  body {
+      max-width: 100%;
+      padding: 0 0 0 0;
+      margin: 0 0 0 0;
+  }
+  header {
+    padding-bottom: 6px;
+  }
 }
