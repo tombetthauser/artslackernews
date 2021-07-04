@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(restoreUser);
 
 // prevents caching, seems to help a little possibly but not totally fixed
-app.use((req, res, next) => {
+app.use((_req, res, next) => {
   res.set('Cache-Control', 'no-store')
   next()
 })

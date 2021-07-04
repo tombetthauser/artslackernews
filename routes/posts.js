@@ -186,7 +186,7 @@ router.post('/new', csrfProtection, postValidators,
       })
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
-      res.render('post-add', { title, url, text, errors, csrfToken: req.csrfToken() });
+      res.render('posts-add', { title, url, text, errors, csrfToken: req.csrfToken() });
     }
   }));
   
