@@ -62,3 +62,11 @@ textarea, input, select {
   margin-left: 3px;
   margin-right: 3px;
 }
+
+@media only screen and (max-width: 750px) {
+  .new-post-form {
+      margin-left: 0px;
+      padding-left: 0px;
+      max-width: 100%;
+  }
+}
