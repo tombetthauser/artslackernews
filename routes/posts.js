@@ -168,8 +168,8 @@ router.get('/new', csrfProtection, asyncHandler(async (req, res) => {
 const postValidators = [
   check('title')
     .exists({ checkFalsy: true }).withMessage('post must have a title')
-    .isLength({ min: 10 }).withMessage('post title must not be less than 10 characters long')
-    .isLength({ max: 50 }).withMessage('post title must not be more than 50 characters long'),
+    .isLength({ min: 6 }).withMessage('post title must not be less than 10 characters long')
+    .isLength({ max: 150 }).withMessage('post title must not be more than 50 characters long'),
 ];
 
 router.post('/new', csrfProtection, postValidators,

@@ -25,6 +25,8 @@ const registrationValidators = [
     .exists({ checkFalsy: true }).withMessage('please provide a username')
     .isLength({ min: 3 }).withMessage('username must not be less than 3 characters long')
     .isLength({ max: 50 }).withMessage('username must not be more than 50 characters long')
+    .custom(value => !/\s/.test(value))
+    .withMessage('spaces are allowed in your username (what were you thinking?)')
     .custom((value) => {
       return db.User.findOne({ where: { username: value } })
         .then((user) => {
@@ -36,7 +38,9 @@ const registrationValidators = [
   check('password')
     .exists({ checkFalsy: true }).withMessage('please provide a value for password')
     .isLength({ min: 3 }).withMessage('password must not be less than 3 characters long')
-    .isLength({ max: 50 }).withMessage('password must not be more than 50 characters long'),
+    .isLength({ max: 50 }).withMessage('password must not be more than 50 characters long')
+    .custom(value => !/\s/.test(value))
+    .withMessage('spaces are allowed in your password (you monster)'),
   check('confirmPassword').custom((value, { req }) => {
     if (value !== req.body.password) {
       throw new Error('confirm password must match password');
