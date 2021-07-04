@@ -27,7 +27,7 @@ block content
     button.new-comment-submit(type="submit") add comment
   for levelOneComment in post.comments
     div.level-one-comment-div
-      if (locals.user && locals.user.id === levelOneComment.user.id)
+      if (locals.user && ((locals.user.id === levelOneComment.user.id) || (locals.user.username === 'tombetthauser')))
         p.post-comment-title= `* ${levelOneComment.user.username} ${levelOneComment.createdAt.getHours()}:${levelOneComment.createdAt.getMinutes()} ${levelOneComment.createdAt.toDateString().slice(4)}`
         a.post-delete-link(href=`/comments/${levelOneComment.id}/delete`) | delete
       else
@@ -37,7 +37,7 @@ block content
       if levelOneComment.comments
         div.level-two-comment-div
           for levelTwoComment in levelOneComment.comments
-            if (locals.user && locals.user.id === levelTwoComment.user.id)
+            if (locals.user && ((locals.user.id === levelTwoComment.user.id) || (locals.user.username === 'tombetthauser')))
               p.post-comment-title= `* ${levelTwoComment.user.username} ${levelTwoComment.createdAt.getHours()}:${levelTwoComment.createdAt.getMinutes()} ${levelTwoComment.createdAt.toDateString().slice(4)}`
               a.post-delete-link(href=`/comments/${levelTwoComment.id}/delete`) | delete
             else
@@ -47,7 +47,7 @@ block content
             if levelTwoComment.comments
               div.level-three-div
                 for levelThreeComment in levelTwoComment.comments
-                  if (locals.user && locals.user.id === levelThreeComment.user.id)
+                  if (locals.user && ((locals.user.id === levelThreeComment.user.id) || (locals.user.username === 'tombetthauser')))
                     p.post-comment-title= `* ${levelThreeComment.user.username} ${levelThreeComment.createdAt.getHours()}:${levelThreeComment.createdAt.getMinutes()} ${levelThreeComment.createdAt.toDateString().slice(4)}`
                     a.post-delete-link(href=`/comments/${levelTwoComment.id}/delete`) | delete
                   else

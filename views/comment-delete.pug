@@ -9,11 +9,11 @@ block content
   span.comment-title= `${comment.user.username} ${comment.createdAt.getHours()}:${comment.createdAt.getMinutes()} ${comment.createdAt.toDateString().slice(4)}`
   span.comment-text= comment.text
 
-  if locals.authenticated && comment.user.id === locals.user.id
+  if locals.authenticated && ((comment.user.id === locals.user.id) || (locals.user.username === 'tombetthauser'))
     form.new-comment-form(action=`/comments/${comment.id}/delete` method='post')
       h1 Delete Comment?
         input(type='hidden' name='_csrf' value=csrfToken)
         p Are you sure you want to delete this comment?
         button(type='submit') delete
-        a(href=`/posts/${comment.post.id}` class='btn btn-warning ml-2') cancel
+        a(href=`/posts/${comment.post ? comment.post.id : '?'}` class='btn btn-warning ml-2') cancel
         p.footer-p ** note: This comment and all responses made to it will be gone forever

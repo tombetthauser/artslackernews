@@ -53,17 +53,17 @@ router.post('/new', csrfProtection, postValidators, asyncHandler(async (req, res
 router.get('/:id/delete', csrfProtection, asyncHandler(async (req, res) => {
   const commentId = parseInt(req.params.id, 10);
   const comment = await db.Comment.findByPk(commentId, { include: [ "user", "post" ] });
-  if (res.locals.user && comment.user.id === res.locals.user.id) {
+  if (res.locals.user && ((comment.user.id === res.locals.user.id) || (res.locals.user.username === 'tombetthauser'))) {
     res.render('comment-delete', { csrfToken: req.csrfToken(), comment });
   } else {
-    res.redirect(`/posts/${post.id}`);
+    res.redirect(`/posts/${post ? post.id : ''}`);
   }
 }));
 
 router.post('/:id/delete', csrfProtection, asyncHandler(async (req, res) => {
   const commentId = parseInt(req.params.id, 10);
   const comment = await db.Comment.findByPk(commentId, { include: [ "post" ] });
-  const postId = comment.post.id
+  const postId = comment.post ? comment.post.id : '';
   await comment.destroy();
   req.session.save(() => {
     res.redirect(`/posts/${postId}`);

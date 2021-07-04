@@ -30,7 +30,7 @@ block content
             a.post-list-sub-link()= `${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)} | `
             a.post-list-sub-link(href=`/posts/${post.id}`) discuss 
             if (locals.user)
-              if (post.user.id === locals.user.id)
+              if (post.user.id === locals.user.id || locals.user.username === 'tombetthauser')
                 a.post-list-sub-link(href=`/posts/${post.id}/delete`) | delete
   else
     p(class="no-posts-p") >> no posts in this section yet <<
