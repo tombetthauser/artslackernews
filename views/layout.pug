@@ -2,37 +2,41 @@ doctype html
 html
   head
       block head
-        title="Art Slacker News"
+        title="MFA Hole"
         link(rel='stylesheet' href='/stylesheets/reset.css')
         link(rel='stylesheet' href='/stylesheets/layout.css')
   body
+    div(class="rainbow-background banner-div")
     div(class="center")
       header
-        div(class="logo") 
-          a(href="/") A
-        h1 
-          a(href="/") Art Slacker News
-        div(class="links")
-          a(href="/posts") posts | 
-          //- a(href="/posts&type=threads") threads | 
-          a(href="/posts?type=show") shows | 
-          a(href="/posts?type=question") questions | 
-          a(href="/posts?type=job") jobs | 
-          a(href="/posts/new") submit | 
-          if locals.authenticated
-            a(href=`/posts?userId=${user.id}`) #{user.username} |
-            form(class='header-logout-form' action='/users/logout' method='post')
-              button(type='submit') logout
-            //- a(href="/users/login") login
-          else
-            a(href="/users/register") register | 
-            a(href="/users/login") login
+        div(class="line-div")
+          div(class="inner-header")
+            div(class="logo") 
+              a(href="/") M 
+            h1(class="header-h1") 
+              a(href="/") MFA Hole
+          div(class="links")
+            a(href="/posts") posts | 
+            //- a(href="/posts&type=threads") threads | 
+            a(href="/posts?type=show") shows | 
+            a(href="/posts?type=question") questions | 
+            a(href="/posts?type=resources") resources | 
+            a(href="/posts?type=job") jobs | 
+            a(href="/posts/new") post | 
+            if locals.authenticated
+              a(href=`/posts?userId=${user.id}`) #{user.username} |
+              form(class='header-logout-form' action='/users/logout' method='post')
+                button(type='submit') logout
+              //- a(href="/users/login") login
+            else
+              //- a(href="/users/register") register | 
+              a(href="/users/login") login
       div(class="content")
         block content
       div.footer-div
-        p.footer-text Inane Posts and Discussions for Deadbeat Art Hippies
-        div.footer-links
-          a.footer-link(href="https://github.com/tombetthauser" target="new")= `tom betthauser ${new Date().getFullYear()}`
+        p.footer-text posts &amp; discussions for deadbeat art hippies • hackernews ripoff
+        //- div.footer-links
+          //- a.footer-link(href="https://github.com/tombetthauser" target="new")= `tom betthauser ${new Date().getFullYear()}`
         form.footer-search-form(method="get" action=`/posts`)
           label Search: 
           input(type="text" name="title")

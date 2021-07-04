@@ -2,15 +2,16 @@
   padding-left: 25px;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 10pt;
-  color: #828282;
+  color: black;
 }
 
 .post-triangle {
-  margin-left: -3px;
+  margin-left: -2px;
+  margin-right: 3px;
   font-size: 8pt;
   transform: translateY(-1px);
   display: inline-block;
-  color: #959595;
+  color: black;
   cursor: pointer;
 }
 
@@ -19,7 +20,7 @@
 }
 
 .post-li {
-  margin-bottom: 5px;
+  margin-bottom: 7.5px;
 }
 
 .post-title {
@@ -51,5 +52,37 @@
   font-size: 10pt;
   transform: translateY(-1px);
   display: inline-block;
-  color: #ff6600;
+  animation: color-text-shift;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+}
+
+.rainbow {
+  animation: color-text-shift;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+}
+
+.rainbow-background {
+  animation: color-background-shift;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes color-background-shift {
+  0%   {background-color: rgb(255, 161, 175);}
+  20%   {background-color: rgb(214, 125, 255);}
+  40%  {background-color: rgb(104, 193, 235);}
+  60%  {background-color: rgb(116, 201, 67);}
+  80%  {background-color: rgb(255, 168, 55);}
+  100%   {background-color: rgb(255, 161, 175);}
+}
+
+@keyframes color-text-shift {
+  0%   {color: rgb(255, 161, 175);}
+  20%   {color: rgb(214, 125, 255);}
+  40%  {color: rgb(104, 193, 235);}
+  60%  {color: rgb(116, 201, 67);}
+  80%  {color: rgb(255, 168, 55);}
+  100%   {color: rgb(255, 161, 175);}
 }

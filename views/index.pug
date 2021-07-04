@@ -6,28 +6,32 @@ append head
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
   meta(name="viewport" content="width=device-width, initial-scale=1.0")
+  link(rel="shortcut icon" href="/favicon.png")
 
 block content
-  ol.posts-ol
-    each post in posts
-      li.post-li
-        if (locals.user && post.user.id === locals.user.id)
-            span.post-asterisk= `*`
-        else
-          span.post-triangle= `▲`
-        if (post.url)
-          a(href=post.url target="new")
-            span.post-title= `${post.title}`
-          span.post-url
-            a(href=post.url target="new")= `(${post.url.split("/")[2]})`
-        else
-          a(href=`/posts/${post.id}`)
-            span.post-title= `${post.title}`
-        div.post-subtext-div
-          //- span.post-subtext= `by ${post.user.username} | ${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)} | `
-          a.post-list-sub-link(href=`/posts?userId=${post.user.id}`)= `by ${post.user.username} | `
-          a.post-list-sub-link()= `${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)} | `
-          a.post-list-sub-link(href=`/posts/${post.id}`) discuss 
-          if (locals.user)
-            if (post.user.id === locals.user.id)
-              a.post-list-sub-link(href=`/posts/${post.id}/delete`) | delete
+  if (posts.length > 0)
+    ol.posts-ol
+      each post in posts
+        li.post-li
+          if (locals.user && post.user.id === locals.user.id)
+              span.post-asterisk= `*`
+          else
+            span.post-triangle= `▲`
+          if (post.url)
+            a(href=post.url target="new")
+              span.post-title= `${post.title}`
+            span.post-url
+              a(href=post.url target="new")= `(${post.url.split("/")[2]})`
+          else
+            a(href=`/posts/${post.id}`)
+              span.post-title= `${post.title}`
+          div.post-subtext-div
+            //- span.post-subtext= `by ${post.user.username} | ${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)} | `
+            a.post-list-sub-link(href=`/posts?userId=${post.user.id}`)= `by ${post.user.username} | `
+            a.post-list-sub-link()= `${post.createdAt.getHours()}:${post.createdAt.getMinutes()} ${post.createdAt.toDateString().slice(4)} | `
+            a.post-list-sub-link(href=`/posts/${post.id}`) discuss 
+            if (locals.user)
+              if (post.user.id === locals.user.id)
+                a.post-list-sub-link(href=`/posts/${post.id}/delete`) | delete
+  else
+    p(class="no-posts-p") >> no posts in this section yet <<

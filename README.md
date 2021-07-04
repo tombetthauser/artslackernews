@@ -41,6 +41,8 @@ WORK LOG
 * Need to add optional text for new posts - had the textarea field on the new post form but realized it wasn't actually a column on the Posts table so hid the input for now - need to add it to migrations or maybe add an additive migration - regardless add to database, then make some coin-flip random text in the seed file, then uncomment the input field on new post form and then work on how it renders in the post view
 * after the ability to show more posts and split posts up into different pages is built the lazy url-props-based search feature will break and will have to actually get built out on the back end with some sequelize where magic - can still probably work through url props though
 
+* July 2021 - complete visual overhaul from hackernews clone (Art Slacker News) to MFA Hole
+
 -->
 
 <!-- 
